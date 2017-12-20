@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdp.edu.mapper.SearchMapper">
+	<select id="select_vo_sku_spu_pp" parameterType="int" resultMap="vo">
+		select sku.id sku_id,spu.id spu_id,pp.id
+		pp_id,sku.*,spu.shp_tp,pp.ppmch,pp.url
+		from t_mall_sku
+		sku,t_mall_product spu,t_mall_trade_mark
+		pp,t_mall_tm_class tm
+		where
+		sku.shp_id=spu.Id and spu.flbh1=tm.flbh1 and tm.pp_id=pp.Id
+		and
+		spu.pp_id=pp.Id
+		and spu.flbh2=#{class2id}
+	</select>
+	<resultMap type="com.sdp.edu.vo.VO_SKU_SPU_PP" id="vo"
+		autoMapping="true">
+		<result property="id" column="sku_id" />
+
+		<association property="spu" javaType="com.sdp.edu.bean.T_MALL_PRODUCT"
+			autoMapping="true">
+			<result property="id" column="spu_id" />
+		</association>
+
+		<association property="pp" javaType="com.sdp.edu.bean.T_MALL_TRADE_MARK"
+			autoMapping="true">
+			<result property="id" column="pp_id" />
+		</association>
+	</resultMap>
+	<select id="select_vo_attr_values" parameterType="int"
+		resultMap="vo2">
+
+		SELECT attr.id attr_id,val.id val_id,attr.*,val.*
+		from
+		t_mall_attr attr
+		,t_mall_value val
+		where attr.id=val.shxm_id AND
+		attr.flbh2=#{class2id}
+	</select>
+	<resultMap type="com.sdp.edu.vo.VO_ATTR_VALUE" id="vo2"
+		autoMapping="true">
+		<result property="id" column="attr_id" />
+		<collection property="values_list" ofType="com.sdp.edu.bean.T_MALL_VALUE"
+			autoMapping="true">
+			<result property="id" column="val_id" />
+		</collection>
+	</resultMap>
+</mapper>
