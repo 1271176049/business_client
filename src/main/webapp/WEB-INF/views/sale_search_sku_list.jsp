@@ -23,6 +23,7 @@
 		<div
 			style="border: 1px yellow solid; float: left; width: 260px; height: 300px;">
 			<img alt="" src="pic/${vo.spu.shp_tp }" width="100px" height="100px"><br>
+			<a href="sku_detail.do?sku_id=${vo.id}&spu_id=${vo.shp_id}">${vo.sku_mch}</a><br>
 			库存名称:${vo.sku_mch }<br> 销量:${vo.sku_xl }<br> 库存:${vo.kc }<br>
 			价格:${vo.jg }<br> 商品名:${vo.spu.shp_mch}<br>
 			品牌名称:${vo.pp.ppmch }

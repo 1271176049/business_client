@@ -1,6 +1,8 @@
-package com.sdp.edu.bean;
+package com.sdp.edu.model;
 
 import java.util.List;
+
+import com.sdp.edu.bean.T_MALL_SKU_ATTR_VALUE;
 
 public class MODEL_T_MALL_SKU_ATTR_VALUE {
 

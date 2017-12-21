@@ -20,6 +20,8 @@
 </head>
 <body>
 	<jsp:include page="sale_search_attr_list.jsp"></jsp:include>
-	<jsp:include page="sale_search_sku_list.jsp"></jsp:include>
+	<div id="sku_list">
+		<jsp:include page="sale_search_sku_list.jsp"></jsp:include>
+	</div>
 </body>
 </html>

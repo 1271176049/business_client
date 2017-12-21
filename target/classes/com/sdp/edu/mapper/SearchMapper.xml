@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sdp.edu.mapper.SearchMapper">
+	<select id="select_vo_sku_detail" resultMap="vo_detail">
+select 
+		sku.id as sku_id,
+		spu.id as spu_id,
+		image.id as image_id ,
+		attr.shxm_mch,
+		CONCAT(val.shxzh,val.shxzh_mch) as shxzh_mch,sku.*,spu.*,
+		image.*
+from t_mall_sku sku,
+t_mall_product spu,
+t_mall_product_image image,
+t_mall_sku_attr_value av,
+t_mall_attr attr,
+t_mall_value val
+
+where sku.shp_id=spu.Id
+and spu.id=image.shp_id
+and av.sku_id=sku.Id
+and av.shxm_id=attr.Id
+and av.shxzh_id=val.Id
+
+and sku.Id=#{skuid}
+	</select>
+	<resultMap type="com.sdp.edu.vo.VO_Sku_Detail" id="vo_detail"
+		autoMapping="true">
+		<!-- 设置sku的id -->
+		<result property="id" column="id" />
+		<!-- 设置spu的id -->
+		<association property="spu" javaType="com.sdp.edu.bean.T_MALL_PRODUCT"
+			autoMapping="true">
+			<result property="id" column="spu_id" />
+		</association>
+		<!-- 设置image的id -->
+		<collection property="list_image"
+			ofType="com.sdp.edu.bean.T_MALL_PRODUCT_IMAGE" autoMapping="true">
+			<result property="id" column="image_id" />
+		</collection>
+		<!-- 设置attr的id -->
+		<collection property="list_attr_name" ofType="com.sdp.edu.bean.T_MALL_SKU_AV_NAME"
+			autoMapping="true">
+		</collection>
+
+	</resultMap>
+	<select id="select_sku_list_by_spuid" resultType="com.sdp.edu.bean.T_MALL_SKU">
+		select * from t_mall_sku where t_mall_sku.shp_id=#{spu_id}
+	</select>
+	
+	
 	<select id="select_vo_sku_spu_pp" parameterType="int" resultMap="vo">
 		select sku.id sku_id,spu.id spu_id,pp.id
 		pp_id,sku.*,spu.shp_tp,pp.ppmch,pp.url
@@ -45,4 +93,18 @@
 			<result property="id" column="val_id" />
 		</collection>
 	</resultMap>
+	<select id="select_vo_sku_spu_pp_by_attr" parameterType="map"
+		resultMap="vo">
+		select sku.id sku_id,spu.id spu_id,pp.id
+		pp_id,sku.*,spu.shp_tp,pp.ppmch,pp.url
+		from t_mall_sku
+		sku,t_mall_product spu,t_mall_trade_mark
+		pp,t_mall_tm_class tm
+		where
+		sku.shp_id=spu.Id and spu.flbh1=tm.flbh1 and tm.pp_id=pp.Id
+		and
+		spu.pp_id=pp.Id
+		and spu.flbh2=#{class2id}
+		and sku.id in ${sql}
+	</select>
 </mapper>
