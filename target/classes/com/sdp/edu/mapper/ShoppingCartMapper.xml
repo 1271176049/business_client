@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdp.edu.mapper.ShoppingCartMapper">
+	<select id="select_ShoppingCart" parameterType="int"
+		resultType="com.sdp.edu.bean.T_MALL_SHOPPINGCAR">
+		select
+		Id,
+		sku_mch,
+		sku_jg,
+		tjshl,
+		hj,
+		yh_id,
+		shp_id,
+		chjshj,
+		sku_id,
+		shp_tp,
+		shfxz,
+		kcdz
+		from t_mall_shoppingcar
+		where
+		yh_id=#{yh_id}
+
+	</select>
+	<update id="update_ShoppingCart">
+		update t_mall_shoppingcar set tjshl=#{shuliang} where
+		yh_id=#{shoppingcart.yh_id} and sku_id=#{shoppingcart.sku_id}
+	</update>
+	<insert id="insert_ShoppingCartItem" parameterType="com.sdp.edu.bean.T_MALL_SHOPPINGCAR">
+		insert into
+		t_mall_shoppingcar(
+		sku_mch,
+		sku_jg,
+		tjshl,
+		hj,
+		yh_id,
+		shp_id,
+		sku_id,
+		shp_tp,
+		shfxz,
+		kcdz
+		) values (
+		#{sku_mch},
+		#{sku_jg},
+		#{tjshl},
+		#{hj},
+		#{yh_id},
+		#{shp_id},
+		#{sku_id},
+		#{shp_tp},
+		#{shfxz},
+		#{kcdz}
+		);
+	</insert>
+</mapper>
