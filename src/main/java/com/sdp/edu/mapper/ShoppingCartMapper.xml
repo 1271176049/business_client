@@ -51,4 +51,62 @@
 		#{kcdz}
 		);
 	</insert>
+	<insert id="insert_ShoppingCartItem_merge">
+		insert into
+		t_mall_shoppingcar(
+		sku_mch,
+		sku_jg,
+		tjshl,
+		hj,
+		yh_id,
+		shp_id,
+		sku_id,
+		shp_tp,
+		shfxz,
+		kcdz
+		) values (
+		#{param1.sku_mch},
+		#{param1.sku_jg},
+		#{param1.tjshl},
+		#{param1.hj},
+		#{param2},
+		#{param1.shp_id},
+		#{param1.sku_id},
+		#{param1.shp_tp},
+		#{param1.shfxz},
+		#{param1.kcdz}
+		);
+	</insert>
+	<insert id="insert_ShoppingCartItemlist" parameterType="list">
+		insert
+		into
+		t_mall_shoppingcar(
+		sku_mch,
+		sku_jg,
+		tjshl,
+		hj,
+		yh_id,
+		shp_id,
+		sku_id,
+		shp_tp,
+		shfxz,
+		kcdz
+		) values
+		<foreach collection="list" separator=",">
+			(
+			#{sku_mch},
+			#{sku_jg},
+			#{tjshl},
+			#{hj},
+			#{yh_id},
+			#{shp_id},
+			#{sku_id},
+			#{shp_tp},
+			#{shfxz},
+			#{kcdz}
+			)
+		</foreach>
+
+
+	</insert>
 </mapper>

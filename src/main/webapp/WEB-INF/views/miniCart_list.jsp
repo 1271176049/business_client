@@ -20,9 +20,11 @@
 </head>
 <body>
 
-	<input type="text" name="search" size="20">
-	<input type="submit" value="搜索">
-	<jsp:include page="miniCart.jsp"></jsp:include>
-
+	<c:forEach items="${list_cart}" var="cart"> 
+		${cart.sku_mch}<br>
+		${cart.shp_tp}<br>
+		${cart.sku_jg}<br>
+		${cart.tjshl}<br>
+	</c:forEach>
 </body>
 </html>

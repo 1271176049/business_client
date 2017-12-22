@@ -14,15 +14,21 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-	
+	function getMiniCart() {
+		$.post("getMiniCart.do", function(data) {
+			$("#miniCart_list").html(data);
+			$("#miniCart_list").show();
+		})
+	}
+	function hideMiniCart() {
+		$("#miniCart_list").hide();
+	}
 </script>
 <title>硅谷商城</title>
 </head>
 <body>
-
-	<input type="text" name="search" size="20">
-	<input type="submit" value="搜索">
-	<jsp:include page="miniCart.jsp"></jsp:include>
-
+	<%-- <jsp:include page="miniCart_list.jsp"></jsp:include> --%>
+	<a href="#" onmousemove="getMiniCart()" onmouseout="hideMiniCart()">购物车</a>
+	<div id="miniCart_list"></div>
 </body>
 </html>

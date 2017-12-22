@@ -12,4 +12,9 @@ public interface ShoppingCartService {
 
 	void addShoppingCart(T_MALL_SHOPPINGCAR shoppingcart);
 
+
+	void addShoppingCart(List<T_MALL_SHOPPINGCAR> jsonarray_json_list, int id);
+
+	void addShoppingCart(T_MALL_SHOPPINGCAR shoppingcart, int id);
+
 }

@@ -29,4 +29,16 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
 		shoppingCartMapper.insert_ShoppingCartItem(shoppingcart);
 	}
 
+	@Override
+	public void addShoppingCart(List<T_MALL_SHOPPINGCAR> jsonarray_json_list, int id) {
+		shoppingCartMapper.insert_ShoppingCartItemlist(jsonarray_json_list, id);
+
+	}
+
+	@Override
+	public void addShoppingCart(T_MALL_SHOPPINGCAR shoppingcart, int id) {
+		shoppingCartMapper.insert_ShoppingCartItem_merge(shoppingcart,id);
+		
+	}
+
 }

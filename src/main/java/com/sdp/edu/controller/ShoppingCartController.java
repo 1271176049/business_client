@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,24 @@ import com.sdp.edu.utils.JsonlibUtils;
 public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
+
+	@RequestMapping("getMiniCart")
+	public String getMiniCart(@CookieValue(value = "list_shoppingcart", required = false) String list_shoppingcart,
+			HttpSession session, ModelMap model) {
+		T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
+		List<T_MALL_SHOPPINGCAR> list;
+		if (user == null) {
+			if (list_shoppingcart == null || list_shoppingcart.equals("")) {
+				return "miniCart_list";
+			} else {
+				list = JsonlibUtils.jsonarray_json_list(list_shoppingcart, T_MALL_SHOPPINGCAR.class);
+			}
+		} else {
+			list = shoppingCartService.getShoppingCartService(user.getId());
+		}
+		model.put("list_cart", list);
+		return "miniCart_list";
+	}
 
 	// 添加购物车
 	@RequestMapping("add_cart")
@@ -80,12 +99,12 @@ public class ShoppingCartController {
 					// 如果包含该购物项，那么就修改数据库
 					updateDBShoppingCartItem(shoppingcart, list);
 					// 更新session
-					updateSessionSoppingCartItem(shoppingcart,list, session);
+					updateSessionSoppingCartItem(shoppingcart, list, session);
 				} else {
 					// 如果不包含该购物项，就往数据库插入
 					shoppingCartService.addShoppingCart(shoppingcart);
 					// 更新session
-					updateSessionSoppingCartItem(shoppingcart,list, session);
+					updateSessionSoppingCartItem(shoppingcart, list, session);
 				}
 			}
 
@@ -100,7 +119,8 @@ public class ShoppingCartController {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void updateSessionSoppingCartItem(T_MALL_SHOPPINGCAR shoppingcart, List<T_MALL_SHOPPINGCAR> list2, HttpSession session) {
+	private void updateSessionSoppingCartItem(T_MALL_SHOPPINGCAR shoppingcart, List<T_MALL_SHOPPINGCAR> list2,
+			HttpSession session) {
 		List<T_MALL_SHOPPINGCAR> list;
 		list = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_shoppingcart");
 		if (list == null) {
@@ -126,18 +146,19 @@ public class ShoppingCartController {
 	private void updateDBShoppingCartItem(T_MALL_SHOPPINGCAR shoppingcart, List<T_MALL_SHOPPINGCAR> list) {
 		for (T_MALL_SHOPPINGCAR t_MALL_SHOPPINGCAR : list) {
 			if (t_MALL_SHOPPINGCAR.getSku_id() == shoppingcart.getSku_id()) {
-				shoppingCartService.update_ShoppingCart(shoppingcart,
-						t_MALL_SHOPPINGCAR.getTjshl());
+				shoppingCartService.update_ShoppingCart(shoppingcart, t_MALL_SHOPPINGCAR.getTjshl());
 			}
 		}
 	}
-/**
- * 修改数量
- * @param shoppingcart
- * @param list
- * @param flag
- * @return
- */
+
+	/**
+	 * 修改数量
+	 * 
+	 * @param shoppingcart
+	 * @param list
+	 * @param flag
+	 * @return
+	 */
 	private boolean PanDuanCartContainItem(T_MALL_SHOPPINGCAR shoppingcart, List<T_MALL_SHOPPINGCAR> list,
 			boolean flag) {
 		for (T_MALL_SHOPPINGCAR t_shoppingcart : list) {
