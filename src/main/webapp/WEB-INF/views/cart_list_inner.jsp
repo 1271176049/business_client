@@ -19,12 +19,25 @@
 <title>硅谷商城</title>
 </head>
 <body>
+	<table border="1px">
+		<tr>
+			<th>选中</th>
+			<th>图片</th>
+			<th>sku名称</th>
+			<th>用户id</th>
+			<th>数量</th>
+		</tr>
 
-	<c:forEach items="${list_cart}" var="cart">
-
-		<img width="60px" alt="" src="pic/${cart.shp_tp}">
-		<br>${cart.sku_mch}&nbsp;&nbsp;${cart.sku_jg}&nbsp;&nbsp;${cart.tjshl}
-		<br>
-	</c:forEach>
+		<c:forEach items="${cartlist}" var="cartitem">
+			<tr>
+				<td><input type="checkbox" ${cartitem.shfxz =="1"?"checked":""}></td>
+				<td><img width="60px" alt="" src="pic/${cartitem.shp_tp}">
+				</td>
+				<td>${cartitem.sku_mch }</td>
+				<td>${cartitem.yh_id }</td>
+				<td><input style="text-align: center;" type="text" value="${cartitem.tjshl }"></td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

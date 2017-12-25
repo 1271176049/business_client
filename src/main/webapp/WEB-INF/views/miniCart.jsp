@@ -28,7 +28,7 @@
 </head>
 <body>
 	<%-- <jsp:include page="miniCart_list.jsp"></jsp:include> --%>
-	<a href="#" onmousemove="getMiniCart()" onmouseout="hideMiniCart()">购物车</a>
+	<a href="goto_cartlist.do" onmousemove="getMiniCart()" onmouseout="hideMiniCart()">购物车</a>
 	<div id="miniCart_list"></div>
 </body>
 </html>

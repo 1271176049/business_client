@@ -1,5 +1,8 @@
 package com.sdp.edu.bean;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 public class T_MALL_USER_ACCOUNT {
 
 	private int id;
@@ -28,6 +31,7 @@ public class T_MALL_USER_ACCOUNT {
 	}
 
 	public String getYh_nch() {
+		
 		return yh_nch;
 	}
 

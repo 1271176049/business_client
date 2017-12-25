@@ -51,8 +51,8 @@
 				<div class="blank_01"></div>
 				<div class="box_01">
 					<div class="box_01_both">
-						<div class="box_01_both_1">数据源1：<input type="radio" name="dataSource_type" value="1"/></div>
-						<div class="box_01_both_2">数据源2：<input type="radio" name="dataSource_type" value="2"/></div>
+						<div class="box_01_both_1">数据源1：<input type="radio" name="dataSource_type" value="d1"/></div>
+						<div class="box_01_both_2">数据源2：<input type="radio" name="dataSource_type" value="d2"/></div>
 					</div>
 				</div>
 				</form>
