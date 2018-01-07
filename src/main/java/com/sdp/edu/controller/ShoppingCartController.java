@@ -49,6 +49,7 @@ public class ShoppingCartController {
 	public String add_cart(T_MALL_SHOPPINGCAR shoppingcart,
 			@CookieValue(value = "list_shoppingcart", required = false) String list_shoppingcart,
 			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("并发来啦!");
 		List<T_MALL_SHOPPINGCAR> list = new ArrayList<>();
 		// Cookie[] cookie = request.getCookies();
 

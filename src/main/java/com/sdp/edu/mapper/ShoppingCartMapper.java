@@ -1,6 +1,7 @@
 package com.sdp.edu.mapper;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +19,11 @@ public interface ShoppingCartMapper {
 			@Param("userid") int id);
 
 	void insert_ShoppingCartItem_merge(T_MALL_SHOPPINGCAR shoppingcart, int id);
+
+	void update_ShoppingCart_shfxz(String shfxz, int id);
+
+	void delete_by_id(int gwch_id);
+
+	void delete_by_id_bach(@Param("set") Set<Integer> shoppingcart_id);
 
 }

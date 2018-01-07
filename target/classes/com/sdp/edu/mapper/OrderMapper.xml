@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdp.edu.mapper.OrderMapper">
+	<select id="select_skuxl_by_skuid" resultType="int">
+		select sku_xl from
+		t_mall_sku where id=#{id}
+	</select>
+	<update id="update_sku">
+		update t_mall_sku set kc=#{param1},sku_xl=#{param2}
+		where id=#{param3}
+	</update>
+	<select id="select_skushl_by_skuid_for_update" resultType="int">
+		select kc from t_mall_sku where id=#{id} for update
+	</select>
+	<update id="update_flow" parameterType="com.sdp.edu.vo.VO_FLOW">
+		update t_mall_flow set
+		psshj=#{flow.psshj}
+		,psmsh=#{flow.psmsh},ywy=#{flow.ywy},lxfsh=#{flow.lxfsh}
+		where
+		id=#{flow.id}
+	</update>
+	<update id="update_time" parameterType="com.sdp.edu.vo.VO_ORDER">
+		update t_mall_order set
+		yjsdshj=#{order.yjsdshj} where id=#{order.id}
+	</update>
+	<insert id="insert_Order" useGeneratedKeys="true" keyProperty="order.id"
+		keyColumn="id">
+		insert into
+		t_mall_order(
+		shhr,
+		zje,
+		jdh,
+		yh_id,
+		dzh_id,
+		dzh_mch
+		)values(
+		#{address.shjr},
+		#{order.zje},
+		#{order.jdh},
+		#{address.yh_id},
+		#{address.id},
+		#{address.yh_dz}
+		)
+	</insert>
+	<insert id="insert_flow" useGeneratedKeys="true" keyProperty="flow.id"
+		keyColumn="id">
+		insert into t_mall_flow(
+		psfsh,
+		yh_id,
+		dd_id,
+		mqdd,
+		mdd
+		)values(
+		#{flow.psfsh},
+		#{flow.yh_id},
+		#{orderid},
+		#{flow.mqdd},
+		#{address.yh_dz}
+		)
+	</insert>
+	<insert id="insert_order_info">
+		insert into t_mall_order_info(
+		dd_id,
+		sku_id,
+		sku_mch,
+		shp_tp,
+		sku_jg,
+		sku_shl,
+		sku_kcdz,
+		flow_id,
+		gwch_id
+		)values(
+		#{orderid},
+		#{orderinfo.sku_id},
+		#{orderinfo.sku_mch},
+		#{orderinfo.shp_tp},
+		#{orderinfo.sku_jg},
+		#{orderinfo.sku_shl},
+		#{orderinfo.sku_kcdz},
+		#{flowid},
+		#{orderinfo.gwch_id}
+		)
+	</insert>
+</mapper>

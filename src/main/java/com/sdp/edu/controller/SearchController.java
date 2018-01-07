@@ -14,6 +14,7 @@ import com.sdp.edu.bean.T_MALL_SKU;
 import com.sdp.edu.bean.T_MALL_SKU_ATTR_VALUE;
 import com.sdp.edu.model.MODEL_T_MALL_SKU_ATTR_VALUE;
 import com.sdp.edu.service.SearchService;
+import com.sdp.edu.utils.CacheUtils;
 import com.sdp.edu.vo.VO_ATTR_VALUE;
 import com.sdp.edu.vo.VO_SKU_SPU_PP;
 import com.sdp.edu.vo.VO_Sku_Detail;
@@ -26,7 +27,17 @@ public class SearchController {
 	@RequestMapping("goto_class_search")
 	public String get_search_sku(int class_2_id, String class_2_name, ModelMap model) {
 		List<VO_ATTR_VALUE> valuelist = searchService.getAttrList(class_2_id);
-		List<VO_SKU_SPU_PP> vo = searchService.getSearchSku(class_2_id);
+		List<VO_SKU_SPU_PP> vo = null;
+		// 首先从redis中获取，如果查询不到，就用mysql获取，然后将结果放到redis当中
+		String key = "class_2_" + class_2_id;
+		List<VO_SKU_SPU_PP> list = CacheUtils.getList(key, VO_SKU_SPU_PP.class);
+		if (list == null || list.size() == 0) {
+			// mysql
+			vo = searchService.getSearchSku(class_2_id);
+			CacheUtils.setList(key,vo);
+		}else {
+			vo=list;
+		}
 		model.put("vo", vo);
 		model.put("attr", valuelist);
 		return "sale_search_list";
@@ -51,7 +62,7 @@ public class SearchController {
 	}
 
 	@RequestMapping("sku_detail")
-	public String sku_detail(int sku_id, int spu_id,ModelMap model) {
+	public String sku_detail(int sku_id, int spu_id, ModelMap model) {
 		VO_Sku_Detail detail = searchService.sku_detail(sku_id);
 		List<T_MALL_SKU> skulist = searchService.get_sku_list_by_spuid(spu_id);
 		model.put("obj_sku", detail);

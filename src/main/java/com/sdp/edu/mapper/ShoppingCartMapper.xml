@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sdp.edu.mapper.ShoppingCartMapper">
+	<delete id="delete_by_id_bach" parameterType="java.util.Set">
+		delete from t_mall_shoppingcar where id in
+		<foreach collection="set" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
 	<select id="select_ShoppingCart" parameterType="int"
 		resultType="com.sdp.edu.bean.T_MALL_SHOPPINGCAR">
 		select
@@ -109,4 +115,11 @@
 
 
 	</insert>
+	<update id="update_ShoppingCart_shfxz">
+		update t_mall_shoppingcar set shfxz=#{param1} where id=#{param2}
+	</update>
+	<delete id="delete_by_id">
+		delete from t_mall_shoppingcar
+		where id=#{id}
+	</delete>
 </mapper>

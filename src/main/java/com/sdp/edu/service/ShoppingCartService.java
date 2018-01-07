@@ -17,4 +17,6 @@ public interface ShoppingCartService {
 
 	void addShoppingCart(T_MALL_SHOPPINGCAR shoppingcart, int id);
 
+	void update_ShoppingCart_shfxz(String shfxz, int id);
+
 }

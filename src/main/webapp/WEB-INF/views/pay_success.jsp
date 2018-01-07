@@ -11,31 +11,12 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-function goto_check_order(){
-	window.location.href="http://localhost:8080/client/goto_check_order.do";
-}
-function change_shfxz(flag,id){
-	var shfxz="";
-	if(flag){
-		/* 设置选中状态 */
-		shfxz=1;
-	}else{
-		shfxz=0;
-	}
-	$.post("change_shfxz.do",{shfxz:shfxz,id:id},function(data){
-		$("#cartlist").html(data);
-	});
-}
+
 </script>
 <title>硅谷商城</title>
 </head>
 <body>
-<center>
-<div id="cartlist">
-	<jsp:include page="cart_list_inner.jsp"></jsp:include>
-</div>
+支付成功
 
-	<button onclick="goto_check_order()">结算</button>
-</center>
 </body>
 </html>

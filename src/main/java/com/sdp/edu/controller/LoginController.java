@@ -83,7 +83,7 @@ public class LoginController {
 			sql_user = userLoginService.login_user_datasource1(user);
 		} else if (dataSource_type.equals("d2")) {
 			sql_user = userLoginService.login_user_datasource2(user);
-			//sql_user.setYh_nch(URLDecoder.decode(sql_user.getYh_nch(), "UTF-8"));
+			// sql_user.setYh_nch(URLDecoder.decode(sql_user.getYh_nch(), "UTF-8"));
 		}
 
 		if (sql_user == null) {
@@ -104,7 +104,7 @@ public class LoginController {
 
 		// **********************merge购物车
 
-		if (list_shoppingcart == null) {// 如果cookie为空
+		if (list_shoppingcart == null || list_shoppingcart.equals("[]") || list_shoppingcart.equals("")) {// 如果cookie为空
 			session.setAttribute("list_shoppingcart", shoppingCartService.getShoppingCartService(sql_user.getId()));
 			return "redirect:/index.do";
 		} else {
@@ -113,6 +113,7 @@ public class LoginController {
 			//
 			List<T_MALL_SHOPPINGCAR> jsonarray_json_list = JsonlibUtils.jsonarray_json_list(list_shoppingcart,
 					T_MALL_SHOPPINGCAR.class);
+
 			if (shoppingCartlist == null) {// 如果数据库中没有购物项
 				shoppingCartService.addShoppingCart(jsonarray_json_list, sql_user.getId());
 				// 更新session

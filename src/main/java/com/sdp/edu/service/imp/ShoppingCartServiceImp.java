@@ -41,4 +41,10 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
 		
 	}
 
+	@Override
+	public void update_ShoppingCart_shfxz(String shfxz, int id) {
+		shoppingCartMapper.update_ShoppingCart_shfxz(shfxz,id);
+		
+	}
+
 }
